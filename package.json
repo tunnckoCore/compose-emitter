@@ -12,7 +12,8 @@
   },
   "dependencies": {
     "app-base": "github:tunnckocore/app-base",
-    "extend-shallow": "^2.0.1"
+    "extend-shallow": "^2.0.1",
+    "is-extendable": "^0.1.1"
   },
   "devDependencies": {
     "assertit": "^0.1.0",

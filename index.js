@@ -9,15 +9,16 @@
 
 var extend = require('extend-shallow')
 var AppBase = require('app-base').AppBase
+var isObject = require('is-extendable')
 
 function ComposeEmitter (options) {
   if (!(this instanceof ComposeEmitter)) {
     return new ComposeEmitter(options)
   }
   AppBase.call(this)
-  this.options = options || {}
-  if (!this.options.emitter) {
-    throw new TypeError('ComposeEmitter: expect `options.emitter` to be passed')
+  this.options = isObject(options) ? options : {}
+  if (!isObject(this.options.emitter)) {
+    throw new TypeError('ComposeEmitter: expect `options.emitter` be extendable object')
   }
   this.define('emitter', this.options.emitter)
 }
@@ -28,7 +29,7 @@ AppBase.define(ComposeEmitter.prototype, 'composeListener', function composeList
     throw new TypeError('.composeListener expect `type` be string')
   }
   var self = this
-  self.options = options ? extend(self.options, options) : self.options
+  self.options = isObject(options) ? extend(self.options, options) : self.options
 
   return function onOffEmitOnce (name, fn, context) {
     if (type !== 'on' && type !== 'once' && type !== 'off') {
