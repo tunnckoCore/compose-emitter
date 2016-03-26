@@ -44,7 +44,8 @@ function ComposeEmitter (options) {
 
 /**
  * > Extend your application with ComposeEmitter static and prototype methods.
- * See [static-extend][] or [tunnckoCore/app-base](https://github.com/tunnckoCore/app-base) for more info.
+ * See [static-extend][] or [tunnckoCore/app-base](https://github.com/tunnckoCore/app-base)
+ * for more info and what's static and prototype methods are added.
  *
  * **Example**
  *
