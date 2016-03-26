@@ -13,7 +13,9 @@ npm i compose-emitter --save
 > For more use-cases see the [tests](./test.js)
 
 ```js
-const ComposeEmitter = require('compose-emitter')
+const emitter = require('compose-emitter')
+// or get constructor
+const ComposeEmitter = require('compose-emitter').ComposeEmitter
 ```
 
 ### [ComposeEmitter](index.js#L37)
