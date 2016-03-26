@@ -18,7 +18,7 @@ var isObject = require('is-extendable')
  * **Example**
  *
  * ```js
- * var ComposeEmitter = require('compose-emitter')
+ * var ComposeEmitter = require('compose-emitter').ComposeEmitter
  * var Emitter = require('component-emitter')
  *
  * var ee = new ComposeEmitter({
@@ -49,7 +49,7 @@ function ComposeEmitter (options) {
  * **Example**
  *
  * ```js
- * var ComposeEmitter = require('compose-emitter')
+ * var ComposeEmitter = require('compose-emitter').ComposeEmitter
  * var Emitter = require('eventemitter3')
  *
  * function App (options) {
@@ -108,19 +108,20 @@ AppBase.extend(ComposeEmitter)
  * **Example**
  *
  * ```js
- * var ComposeEmitter = require('compose-emitter')
+ * var emitter = require('compose-emitter')
  * var Emitter = require('eventemitter3')
  *
- * var app = new ComposeEmitter({
+ * var on = emitter.compose('on', {
  *   context: {a: 'b'},
  *   emitter: new Emitter()
  * })
+ * var emit = emitter.compose('emit')
  *
- * app
- *   .compose('on')('foo', function (a, b) {
- *     console.log('foo:', a, b, this) // => 1, 2, {a: 'b', c: 'd'}
- *   }, {c: 'd'})
- *   .compose('emit')('foo', 1, 2)
+ * on('foo', function (a, b) {
+ *   console.log('foo:', a, b, this) // => 1, 2, {a: 'b', c: 'd'}
+ * }, {c: 'd'})
+ *
+ * emit('foo', 1, 2)
  * ```
  *
  * @name   .compose
@@ -154,4 +155,5 @@ AppBase.define(ComposeEmitter.prototype, 'compose', function compose (type, opti
   }
 })
 
-module.exports = ComposeEmitter
+module.exports = new ComposeEmitter()
+module.exports.ComposeEmitter = ComposeEmitter

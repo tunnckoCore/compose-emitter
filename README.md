@@ -26,7 +26,7 @@ const ComposeEmitter = require('compose-emitter')
 **Example**
 
 ```js
-var ComposeEmitter = require('compose-emitter')
+var ComposeEmitter = require('compose-emitter').ComposeEmitter
 var Emitter = require('component-emitter')
 
 var ee = new ComposeEmitter({
@@ -44,7 +44,7 @@ ee
 **Example**
 
 ```js
-var ComposeEmitter = require('compose-emitter')
+var ComposeEmitter = require('compose-emitter').ComposeEmitter
 var Emitter = require('eventemitter3')
 
 function App (options) {
@@ -89,7 +89,7 @@ app
   .emit('bar', 789)
 ```
 
-### [.compose](index.js#L133)
+### [.compose](index.js#L134)
 > Compose different `type` of emitter methods. You can use this to create the usual `.on`, `.emit` and other methods. Pass as `type` name of the method that your emitter have and optional `options` to pass context for the listeners.
 
 **Params**
@@ -101,19 +101,20 @@ app
 **Example**
 
 ```js
-var ComposeEmitter = require('compose-emitter')
+var emitter = require('compose-emitter')
 var Emitter = require('eventemitter3')
 
-var app = new ComposeEmitter({
+var on = emitter.compose('on', {
   context: {a: 'b'},
   emitter: new Emitter()
 })
+var emit = emitter.compose('emit')
 
-app
-  .compose('on')('foo', function (a, b) {
-    console.log('foo:', a, b, this) // => 1, 2, {a: 'b', c: 'd'}
-  }, {c: 'd'})
-  .compose('emit')('foo', 1, 2)
+on('foo', function (a, b) {
+  console.log('foo:', a, b, this) // => 1, 2, {a: 'b', c: 'd'}
+}, {c: 'd'})
+
+emit('foo', 1, 2)
 ```
 
 ## Contributing

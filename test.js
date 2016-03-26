@@ -10,7 +10,7 @@
 'use strict'
 
 var test = require('assertit')
-var ComposeEmitter = require('./index')
+var ComposeEmitter = require('./index').ComposeEmitter
 var Emitter = require('eventemitter3')
 
 test('foo bar', function (done) {
