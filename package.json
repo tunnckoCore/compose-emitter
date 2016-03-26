@@ -1,0 +1,39 @@
+{
+  "name": "compose-emitter",
+  "version": "0.1.0",
+  "description": "Fast, lightweight and powerful composition of an EventEmitter with context binding in mind. Pass your emitter instance and context through options and compose on/off/once/emit methods using `.composeListener` method.",
+  "repository": "tunnckoCore/compose-emitter",
+  "author": "Charlike Mike Reagent <@tunnckoCore> (http://www.tunnckocore.tk)",
+  "precommit.silent": true,
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "test": "standard && node test.js"
+  },
+  "dependencies": {
+    "app-base": "github:tunnckocore/app-base",
+    "extend-shallow": "^2.0.1"
+  },
+  "devDependencies": {
+    "assertit": "^0.1.0",
+    "eventemitter3": "^1.2.0",
+    "pre-commit": "*"
+  },
+  "files": [
+    "index.js"
+  ],
+  "keywords": [
+    "compose-emitter"
+  ],
+  "verb": {
+    "run": true,
+    "toc": false,
+    "layout": "empty",
+    "tasks": [
+      "readme"
+    ],
+    "lint": {
+      "reflinks": true
+    }
+  }
+}
