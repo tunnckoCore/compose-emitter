@@ -40,10 +40,6 @@ function ComposeEmitter (options) {
   }
   AppBase.call(this)
   this.options = isObject(options) ? options : {}
-  if (!isObject(this.options.emitter)) {
-    throw new TypeError('ComposeEmitter: expect `options.emitter` be extendable object')
-  }
-  this.define('emitter', this.options.emitter)
 }
 
 /**
@@ -57,7 +53,7 @@ function ComposeEmitter (options) {
  * var Emitter = require('eventemitter3')
  *
  * function App (options) {
- *    if (!(this instanceof App(options))) {
+ *    if (!(this instanceof App)) {
  *      return new App(options)
  *    }
  *   ComposeEmitter.call(this, options)
@@ -136,11 +132,16 @@ AppBase.extend(ComposeEmitter)
 
 AppBase.define(ComposeEmitter.prototype, 'compose', function compose (type, options) {
   if (typeof type !== 'string') {
-    throw new TypeError('.compose expect `type` be string')
+    throw new TypeError('.compose: expect `type` be string')
   }
-  var self = this
-  self.options = isObject(options) ? extend(self.options, options) : self.options
+  this.options = isObject(options) ? extend(this.options, options) : this.options
 
+  if (!isObject(this.options.emitter)) {
+    throw new TypeError('.compose: expect `options.emitter` be extendable object')
+  }
+  this.define('emitter', this.options.emitter)
+
+  var self = this
   return function onOffEmitOnce (name, fn, context) {
     if (type !== 'on' && type !== 'once' && type !== 'off') {
       self.emitter[type].apply(self.emitter, arguments)
