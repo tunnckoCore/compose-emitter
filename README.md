@@ -40,8 +40,12 @@ ee
   .compose('emit')('foo', 1, 2, 3)
 ```
 
-### [ComposeEmitter.extend](index.js#L102)
+### [ComposeEmitter.extend](index.js#L103)
 > Extend your application with ComposeEmitter static and prototype methods. See [static-extend][] or [tunnckoCore/app-base](https://github.com/tunnckoCore/app-base) for more info and what's static and prototype methods are added.
+
+**Params**
+
+* `Parent` **{Function}**: The constructor to extend, using [static-extend][].    
 
 **Example**
 
@@ -91,7 +95,7 @@ app
   .emit('bar', 789)
 ```
 
-### [.compose](index.js#L135)
+### [.compose](index.js#L136)
 > Compose different `type` of emitter methods. You can use this to create the usual `.on`, `.emit` and other methods. Pass as `type` name of the method that your emitter have and optional `options` to pass context for the listeners.
 
 **Params**

@@ -96,6 +96,7 @@ function ComposeEmitter (options) {
  * ```
  *
  * @name ComposeEmitter.extend
+ * @param {Function} `Parent` The constructor to extend, using [static-extend][].
  * @api public
  */
 
