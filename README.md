@@ -13,7 +13,107 @@ npm i compose-emitter --save
 > For more use-cases see the [tests](./test.js)
 
 ```js
-const composeEmitter = require('compose-emitter')
+const ComposeEmitter = require('compose-emitter')
+```
+
+### [ComposeEmitter](index.js#L37)
+> Initialize ComposeEmitter with `options`. Pass your EventEmitter instance and optionally pass `options.context` to bind to listeners.
+
+**Params**
+
+* `options` **{Object}**: Pass event emitter instance to `options.emitter`.    
+
+**Example**
+
+```js
+var ComposeEmitter = require('compose-emitter')
+var Emitter = require('component-emitter')
+
+var ee = new ComposeEmitter({
+  emitter: new Emitter()
+})
+
+ee
+  .compose('on')('foo', console.log) // => 1, 2, 3
+  .compose('emit')('foo', 1, 2, 3)
+```
+
+### [ComposeEmitter.extend](index.js#L105)
+> Extend your application with ComposeEmitter static and prototype methods. See [static-extend][] or [tunnckoCore/app-base](https://github.com/tunnckoCore/app-base) for more info.
+
+**Example**
+
+```js
+var ComposeEmitter = require('compose-emitter')
+var Emitter = require('eventemitter3')
+
+function App (options) {
+   if (!(this instanceof App(options))) {
+     return new App(options)
+   }
+  ComposeEmitter.call(this, options)
+}
+
+ComposeEmitter.extend(App)
+
+App.prototype.on = function on (name, fn, context) {
+  return this.compose('on')(name, fn, context)
+}
+
+App.prototype.once = function once (name, fn, context) {
+  return this.compose('once')(name, fn, context)
+}
+
+App.prototype.off = function off (name, fn, context) {
+  return this.compose('off')(name, fn, context)
+}
+
+App.prototype.emit = function emit () {
+  return this.compose('emit').apply(null, arguments)
+}
+
+var app = new App({
+  context: {foo: 'bar'},
+  emitter: new Emitter()
+})
+
+app
+  .on('foo', function (a) {
+    console.log('foo:', a, this) // => 123, {foo: 'bar'}
+  })
+  .once('bar', function (b) {
+    console.log('bar:', b) // => 456
+  })
+  .emit('foo', 123)
+  .emit('bar', 456)
+  .emit('bar', 789)
+```
+
+### [.compose](index.js#L137)
+> Compose different `type` of emitter methods. You can use this to create the usual `.on`, `.emit` and other methods. Pass as `type` name of the method that your emitter have and optional `options` to pass context for the listeners.
+
+**Params**
+
+* `type` **{String}**: Name of the emitter method that you want to mirror.    
+* `options` **{Object}**: Optionally pass `context` that will be bind to listeners.    
+* `returns` **{Function}**: Method that accept as many arguments as you want or emitter method need.  
+
+**Example**
+
+```js
+var ComposeEmitter = require('compose-emitter')
+var Emitter = require('eventemitter3')
+
+var app = new ComposeEmitter({
+  context: {a: 'b'},
+  emitter: new Emitter()
+})
+
+app
+  .compose('on')('foo', function (a, b) {
+    console.log('foo:', a, b, this) // => 1, 2, {a: 'b', c: 'd'}
+  }, {c: 'd'})
+  .compose('emit')('foo', 1, 2)
 ```
 
 ## Contributing
@@ -24,8 +124,7 @@ But before doing anything, please read the [CONTRIBUTING.md](./CONTRIBUTING.md) 
 
 [![tunnckoCore.tk][author-www-img]][author-www-url] [![keybase tunnckoCore][keybase-img]][keybase-url] [![tunnckoCore npm][author-npm-img]][author-npm-url] [![tunnckoCore twitter][author-twitter-img]][author-twitter-url] [![tunnckoCore github][author-github-img]][author-github-url]
 
-[app-base]: https://github.com/tunnckocore/app-base
-[extend-shallow]: https://github.com/jonschlinkert/extend-shallow
+[static-extend]: https://github.com/jonschlinkert/static-extend
 
 [npmjs-url]: https://www.npmjs.com/package/compose-emitter
 [npmjs-img]: https://img.shields.io/npm/v/compose-emitter.svg?label=compose-emitter

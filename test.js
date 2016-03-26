@@ -19,12 +19,12 @@ test('foo bar', function (done) {
     emitter: new Emitter()
   })
 
-  app.composeListener('on')('foo', function (a) {
+  app.compose('on')('foo', function (a) {
     test.strictEqual(a, 123)
     test.deepEqual(this, {foo: 'bar'})
     done()
   })
-  .composeListener('emit')('foo', 123)
+  .compose('emit')('foo', 123)
 })
 
 // function foo () {

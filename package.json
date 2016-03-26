@@ -33,6 +33,9 @@
     "tasks": [
       "readme"
     ],
+    "reflinks": [
+      "static-extend"
+    ],
     "lint": {
       "reflinks": true
     }
