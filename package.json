@@ -1,7 +1,7 @@
 {
   "name": "compose-emitter",
   "version": "0.1.1",
-  "description": "Fast, lightweight and powerful composition of an EventEmitter with context binding in mind. Pass your emitter instance and context through options and compose on/off/once/emit methods using `.composeListener` method.",
+  "description": "Fast, lightweight and powerful composition of an EventEmitter with context binding in mind. Pass your emitter instance and context through options and compose on/off/once/emit methods using `.compose` method.",
   "repository": "tunnckoCore/compose-emitter",
   "author": "Charlike Mike Reagent <@tunnckoCore> (http://www.tunnckocore.tk)",
   "precommit.silent": true,

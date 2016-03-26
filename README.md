@@ -1,6 +1,6 @@
 # [compose-emitter][author-www-url] [![npmjs.com][npmjs-img]][npmjs-url] [![The MIT License][license-img]][license-url] 
 
-> Fast, lightweight and powerful composition of an EventEmitter with context binding in mind. Pass your emitter instance and context through options and compose on/off/once/emit methods using `.composeListener` method.
+> Fast, lightweight and powerful composition of an EventEmitter with context binding in mind. Pass your emitter instance and context through options and compose on/off/once/emit methods using `.compose` method.
 
 [![code climate][codeclimate-img]][codeclimate-url] [![standard code style][standard-img]][standard-url] [![travis build status][travis-img]][travis-url] [![coverage status][coveralls-img]][coveralls-url] [![dependency status][david-img]][david-url]
 
@@ -38,7 +38,7 @@ ee
   .compose('emit')('foo', 1, 2, 3)
 ```
 
-### [ComposeEmitter.extend](index.js#L105)
+### [ComposeEmitter.extend](index.js#L101)
 > Extend your application with ComposeEmitter static and prototype methods. See [static-extend][] or [tunnckoCore/app-base](https://github.com/tunnckoCore/app-base) for more info.
 
 **Example**
@@ -48,7 +48,7 @@ var ComposeEmitter = require('compose-emitter')
 var Emitter = require('eventemitter3')
 
 function App (options) {
-   if (!(this instanceof App(options))) {
+   if (!(this instanceof App)) {
      return new App(options)
    }
   ComposeEmitter.call(this, options)
@@ -89,7 +89,7 @@ app
   .emit('bar', 789)
 ```
 
-### [.compose](index.js#L137)
+### [.compose](index.js#L133)
 > Compose different `type` of emitter methods. You can use this to create the usual `.on`, `.emit` and other methods. Pass as `type` name of the method that your emitter have and optional `options` to pass context for the listeners.
 
 **Params**
