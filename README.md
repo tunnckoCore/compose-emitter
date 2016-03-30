@@ -125,6 +125,12 @@ on('foo', function (a, b) {
 emit('foo', 1, 2)
 ```
 
+## Related
+* [component-emitter](https://www.npmjs.com/package/component-emitter): Event emitter | [homepage](https://github.com/component/emitter)
+* [define-property](https://www.npmjs.com/package/define-property): Define a non-enumerable property on an object. | [homepage](https://github.com/jonschlinkert/define-property)
+* [eventemitter3](https://www.npmjs.com/package/eventemitter3): EventEmitter3 focuses on performance while maintaining a Node.js AND browser… [more](https://www.npmjs.com/package/eventemitter3) | [homepage](https://github.com/primus/eventemitter3)
+* [static-extend](https://www.npmjs.com/package/static-extend): Adds a static `extend` method to a class, to simplify… [more](https://www.npmjs.com/package/static-extend) | [homepage](https://github.com/jonschlinkert/static-extend)
+
 ## Contributing
 Pull requests and stars are always welcome. For bugs and feature requests, [please create an issue](https://github.com/tunnckoCore/compose-emitter/issues/new).  
 But before doing anything, please read the [CONTRIBUTING.md](./CONTRIBUTING.md) guidelines.

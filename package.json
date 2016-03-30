@@ -33,6 +33,14 @@
     "tasks": [
       "readme"
     ],
+    "related": {
+      "list": [
+        "eventemitter3",
+        "component-emitter",
+        "static-extend",
+        "define-property"
+      ]
+    },
     "reflinks": [
       "static-extend"
     ],
