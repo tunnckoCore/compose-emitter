@@ -24,7 +24,27 @@
     "index.js"
   ],
   "keywords": [
-    "compose-emitter"
+    "bind",
+    "compose",
+    "compose-emitter",
+    "context",
+    "create",
+    "ctx",
+    "custom",
+    "emit",
+    "emitter",
+    "event",
+    "eventemitter",
+    "events",
+    "fast",
+    "flexible",
+    "off",
+    "on",
+    "once",
+    "one",
+    "onetime",
+    "powerful",
+    "use"
   ],
   "verb": {
     "run": true,
