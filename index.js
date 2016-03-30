@@ -39,8 +39,9 @@ function ComposeEmitter (options) {
     return new ComposeEmitter(options)
   }
   AppBase.call(this)
-  this.options = isObject(options) ? options : {}
-  this.define('context', this.options.context)
+  this.options = isObject(options)
+    ? options
+    : isObject(this.options) ? this.options : {}
 }
 
 /**
@@ -138,9 +139,11 @@ AppBase.define(ComposeEmitter.prototype, 'compose', function compose (type, opti
   if (typeof type !== 'string') {
     throw new TypeError('.compose: expect `type` be string')
   }
-  options = isObject(options) ? options : {}
-  this.define('context', isObject(options.context) ? extend({}, this.context, options.context) : this.context)
-  this.options = extend({}, this.options, options)
+  // @todo
+  var opts = this.options
+  var ctx = options ? extend({}, opts.context, options.context) : opts.context
+  this.options = options ? extend({}, opts, options) : opts
+  this.options.context = ctx
 
   if (!isObject(this.options.emitter)) {
     throw new TypeError('.compose: expect `options.emitter` be extendable object')
@@ -153,9 +156,9 @@ AppBase.define(ComposeEmitter.prototype, 'compose', function compose (type, opti
       self.emitter[type].apply(self.emitter, arguments)
       return self
     }
-    self.define('context', context ? extend({}, self.context, context) : self.context)
-    self.define('context', self.context || self)
-    self.emitter[type](name, fn, self.context)
+    self.options.context = context ? extend({}, self.options.context, context) : self.options.context
+    self.options.context = isObject(self.options.context) ? self.options.context : self
+    self.emitter[type](name, fn, self.options.context)
     return self
   }
 })
