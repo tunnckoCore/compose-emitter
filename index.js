@@ -160,5 +160,18 @@ AppBase.define(ComposeEmitter.prototype, 'compose', function compose (type, opti
   }
 })
 
+/**
+ * Expose `ComposeEmitter` instance
+ * @type {ComposeEmitter}
+ * @private
+ */
+
 module.exports = new ComposeEmitter()
+
+/**
+ * Expose `ComposeEmitter` constructor
+ * @type {ComposeEmitter}
+ * @private
+ */
+
 module.exports.ComposeEmitter = ComposeEmitter

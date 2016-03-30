@@ -4,6 +4,8 @@
 
 [![code climate][codeclimate-img]][codeclimate-url] [![standard code style][standard-img]][standard-url] [![travis build status][travis-img]][travis-url] [![coverage status][coveralls-img]][coveralls-url] [![dependency status][david-img]][david-url]
 
+This package gives you interface with only single method exposed - `.compose`. You should implement the expected methods using flexible `.compose` method and passing whatever emitter you want. It's up to you to create your emitter of choice with methods of choice. This just gives you the flexibility and context binding.
+
 ## Install
 ```
 npm i compose-emitter --save
@@ -40,7 +42,7 @@ ee
   .compose('emit')('foo', 1, 2, 3)
 ```
 
-### [ComposeEmitter.extend](index.js#L103)
+### [ComposeEmitter.extend](index.js#L104)
 > Extend your application with ComposeEmitter static and prototype methods. See [static-extend][] or [tunnckoCore/app-base](https://github.com/tunnckoCore/app-base) for more info and what's static and prototype methods are added.
 
 **Params**
@@ -95,7 +97,7 @@ app
   .emit('bar', 789)
 ```
 
-### [.compose](index.js#L136)
+### [.compose](index.js#L137)
 > Compose different `type` of emitter methods. You can use this to create the usual `.on`, `.emit` and other methods. Pass as `type` name of the method that your emitter have and optional `options` to pass context for the listeners.
 
 **Params**
