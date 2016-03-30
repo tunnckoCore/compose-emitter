@@ -40,6 +40,7 @@ function ComposeEmitter (options) {
   }
   AppBase.call(this)
   this.options = isObject(options) ? options : {}
+  this.define('context', this.options.context)
 }
 
 /**
@@ -137,7 +138,9 @@ AppBase.define(ComposeEmitter.prototype, 'compose', function compose (type, opti
   if (typeof type !== 'string') {
     throw new TypeError('.compose: expect `type` be string')
   }
-  this.options = isObject(options) ? extend(this.options, options) : this.options
+  options = isObject(options) ? options : {}
+  this.define('context', isObject(options.context) ? extend({}, this.context, options.context) : this.context)
+  this.options = extend({}, this.options, options)
 
   if (!isObject(this.options.emitter)) {
     throw new TypeError('.compose: expect `options.emitter` be extendable object')
@@ -150,9 +153,9 @@ AppBase.define(ComposeEmitter.prototype, 'compose', function compose (type, opti
       self.emitter[type].apply(self.emitter, arguments)
       return self
     }
-    context = context ? extend(self.options.context, context) : self.options.context
-    self.options.context = context || self
-    self.emitter[type](name, fn, self.options.context)
+    self.define('context', context ? extend({}, self.context, context) : self.context)
+    self.define('context', self.context || self)
+    self.emitter[type](name, fn, self.context)
     return self
   }
 })

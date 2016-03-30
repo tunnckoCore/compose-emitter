@@ -99,19 +99,30 @@ test('should be able to pass `options.context` to `.compose` and bind it to `.on
   emit('foo', 123, 456)
 })
 
-// test('should be able to pass context to constructor and extend it with that passed to .compose', function (done) {
-//   var foo = new ComposeEmitter({
-//     context: {aa: 'bb'},
-//     emitter: new Emitter()
-//   })
-//   console.log(foo)
-//   // foo.compose('on')
-//   done()
-//   // foo.compose('on', {context: {cc: 'dd'}})('qux', function () {
-//   //   test.deepEqual(this, {aa: 'bb', cc: 'dd'})
-//   //   done()
-//   // }).compose('emit')('qux')
-// })
+test('should be able to pass context to constructor and extend it with that passed to .compose', function (done) {
+  var foo = new ComposeEmitter({
+    context: {aa: 'bb'},
+    emitter: new Emitter()
+  })
+  foo.compose('on', {context: {cc: 'dd'}})('qux', function () {
+    test.deepEqual(this, {aa: 'bb', cc: 'dd'})
+    done()
+  }).compose('emit')('qux')
+})
+
+test('should merge all contexts - from Ctor, from .compose and from .on', function (done) {
+  var app = new ComposeEmitter({
+    context: {a: 'b'}
+  })
+  var on = app.compose('on', {
+    context: {c: 'd'},
+    emitter: new Emitter()
+  })
+  on('name', function () {
+    test.deepEqual(this, {a: 'b', c: 'd', e: 'f'})
+    done()
+  }, {e: 'f'}).compose('emit')('name')
+})
 
 // function foo () {
 //   console.log('foo', this)
