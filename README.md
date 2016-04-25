@@ -4,7 +4,7 @@
 
 [![code climate][codeclimate-img]][codeclimate-url] [![standard code style][standard-img]][standard-url] [![travis build status][travis-img]][travis-url] [![coverage status][coveralls-img]][coveralls-url] [![dependency status][david-img]][david-url]
 
-This package gives you interface with only single method exposed - `.compose`. You should implement the expected methods using flexible `.compose` method and passing whatever emitter you want. It's up to you to create your emitter of choice with methods of choice. This just gives you the flexibility and context binding.
+This package gives you interface with only single method exposed - `.create`. You should implement the expected methods using flexible `.create` method and passing whatever emitter you want. It's up to you to create your emitter of choice with methods of choice. This just gives you the flexibility and context binding.
 
 ## Install
 ```
@@ -38,11 +38,11 @@ var ee = new ComposeEmitter({
 })
 
 ee
-  .compose('on')('foo', console.log) // => 1, 2, 3
-  .compose('emit')('foo', 1, 2, 3)
+  .create('on')('foo', console.log) // => 1, 2, 3
+  .create('emit')('foo', 1, 2, 3)
 ```
 
-### [ComposeEmitter.extend](index.js#L104)
+### [ComposeEmitter.extend](index.js#L105)
 > Extend your application with ComposeEmitter static and prototype methods. See [static-extend][] or [tunnckoCore/app-base](https://github.com/tunnckoCore/app-base) for more info and what's static and prototype methods are added.
 
 **Params**
@@ -65,19 +65,19 @@ function App (options) {
 ComposeEmitter.extend(App)
 
 App.prototype.on = function on (name, fn, context) {
-  return this.compose('on')(name, fn, context)
+  return this.create('on')(name, fn, context)
 }
 
 App.prototype.once = function once (name, fn, context) {
-  return this.compose('once')(name, fn, context)
+  return this.create('once')(name, fn, context)
 }
 
 App.prototype.off = function off (name, fn, context) {
-  return this.compose('off')(name, fn, context)
+  return this.create('off')(name, fn, context)
 }
 
 App.prototype.emit = function emit () {
-  return this.compose('emit').apply(null, arguments)
+  return this.create('emit').apply(null, arguments)
 }
 
 var app = new App({
@@ -97,7 +97,7 @@ app
   .emit('bar', 789)
 ```
 
-### [.compose](index.js#L137)
+### [.create](index.js#L138)
 > Compose different `type` of emitter methods. You can use this to create the usual `.on`, `.emit` and other methods. Pass as `type` name of the method that your emitter have and optional `options` to pass context for the listeners.
 
 **Params**
@@ -112,11 +112,11 @@ app
 var emitter = require('compose-emitter')
 var Emitter = require('eventemitter3')
 
-var on = emitter.compose('on', {
+var on = emitter.create('on', {
   context: {a: 'b'},
   emitter: new Emitter()
 })
-var emit = emitter.compose('emit')
+var emit = emitter.create('emit')
 
 on('foo', function (a, b) {
   console.log('foo:', a, b, this) // => 1, 2, {a: 'b', c: 'd'}

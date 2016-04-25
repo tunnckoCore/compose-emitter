@@ -26,8 +26,8 @@ var isObject = require('is-extendable')
  * })
  *
  * ee
- *   .compose('on')('foo', console.log) // => 1, 2, 3
- *   .compose('emit')('foo', 1, 2, 3)
+ *   .create('on')('foo', console.log) // => 1, 2, 3
+ *   .create('emit')('foo', 1, 2, 3)
  * ```
  *
  * @param {Object} `options` Pass event emitter instance to `options.emitter`.
@@ -65,19 +65,19 @@ function ComposeEmitter (options) {
  * ComposeEmitter.extend(App)
  *
  * App.prototype.on = function on (name, fn, context) {
- *   return this.compose('on')(name, fn, context)
+ *   return this.create('on')(name, fn, context)
  * }
  *
  * App.prototype.once = function once (name, fn, context) {
- *   return this.compose('once')(name, fn, context)
+ *   return this.create('once')(name, fn, context)
  * }
  *
  * App.prototype.off = function off (name, fn, context) {
- *   return this.compose('off')(name, fn, context)
+ *   return this.create('off')(name, fn, context)
  * }
  *
  * App.prototype.emit = function emit () {
- *   return this.compose('emit').apply(null, arguments)
+ *   return this.create('emit').apply(null, arguments)
  * }
  *
  * var app = new App({
@@ -115,11 +115,11 @@ AppBase.extend(ComposeEmitter)
  * var emitter = require('compose-emitter')
  * var Emitter = require('eventemitter3')
  *
- * var on = emitter.compose('on', {
+ * var on = emitter.create('on', {
  *   context: {a: 'b'},
  *   emitter: new Emitter()
  * })
- * var emit = emitter.compose('emit')
+ * var emit = emitter.create('emit')
  *
  * on('foo', function (a, b) {
  *   console.log('foo:', a, b, this) // => 1, 2, {a: 'b', c: 'd'}
@@ -128,16 +128,16 @@ AppBase.extend(ComposeEmitter)
  * emit('foo', 1, 2)
  * ```
  *
- * @name   .compose
+ * @name   .create
  * @param  {String} `type` Name of the emitter method that you want to mirror.
  * @param  {Object} `options` Optionally pass `context` that will be bind to listeners.
  * @return {Function} Method that accept as many arguments as you want or emitter method need.
  * @api public
  */
 
-AppBase.define(ComposeEmitter.prototype, 'compose', function compose (type, options) {
+AppBase.define(ComposeEmitter.prototype, 'create', function create (type, options) {
   if (typeof type !== 'string') {
-    throw new TypeError('.compose: expect `type` be string')
+    throw new TypeError('.create: expect `type` be string')
   }
   // @todo
   var opts = this.options
@@ -146,7 +146,7 @@ AppBase.define(ComposeEmitter.prototype, 'compose', function compose (type, opti
   this.options.context = ctx
 
   if (!isObject(this.options.emitter)) {
-    throw new TypeError('.compose: expect `options.emitter` be extendable object')
+    throw new TypeError('.create: expect `options.emitter` be extendable object')
   }
   this.define('emitter', this.options.emitter)
 
