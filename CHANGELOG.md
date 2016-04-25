@@ -1,5 +1,9 @@
 
 
+## 1.1.0 - 2016-04-25
+- Release v1.1.0 / npm@v1.1.0
+- rename `.compose` method to `.create`
+
 ## 1.0.1 - 2016-03-30
 - Release v1.0.1 / npm@v1.0.1
 - fix `options.context` bugs (hopefully)
