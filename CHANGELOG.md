@@ -1,5 +1,9 @@
 
 
+## 1.2.0 - 2016-04-25
+- Release v1.2.0 / npm@v1.2.0
+- revert back to `v1.0.1`, rename `.create` method to `.compose`
+
 ## 1.1.0 - 2016-04-25
 - Release v1.1.0 / npm@v1.1.0
 - rename `.compose` method to `.create`
